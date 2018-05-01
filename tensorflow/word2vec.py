@@ -44,8 +44,8 @@ word2vec = tf.load_op_library(str(PROJECT_DIR / 'tensorflow' / 'word2vec_ops.so'
 flags = tf.app.flags
 flags.DEFINE_string('language', 'en', 'Document language.')
 flags.DEFINE_string('file', 'ngrams_1', 'Input doc.')
-flags.DEFINE_string('source', 'Europarliament', 'Data source.')
-flags.DEFINE_integer('epochs_to_train', 15, 'Number of epochs to train. ')
+flags.DEFINE_string('source', 'TED', 'Data source.')
+flags.DEFINE_integer('epochs_to_train', 1, 'Number of epochs to train. ')
 flags.DEFINE_integer('embedding_size', 200, 'The embedding dimension size.')
 flags.DEFINE_float('starter_lr', 0.05, 'Initial learning rate.')
 flags.DEFINE_float('target_lr', 0.05, 'Final learning rate.')
@@ -91,7 +91,7 @@ class Options(object):
         else:
             self.subsample = FLAGS.subsample
         self.words_to_project = FLAGS.words_to_project
-        self.save_path = Path(self.source, self.lang, self.file , '{}_{}_{}_{}_{}_{}_{}'.format(self.emb_dim, self.num_samples, int(self.starter_lr * 100), int(self.target_lr * 100), self.batch_size, self.window_size, self.min_count))
+        self.save_path = Path(PROJECT_DIR, self.source, self.lang, self.file , '{}_{}_{}_{}_{}_{}_{}'.format(self.emb_dim, self.num_samples, int(self.starter_lr * 100), int(self.target_lr * 100), self.batch_size, self.window_size, self.min_count))
         self.tensor_board_path = self.save_path / 'tensorboard'
         if not self.tensor_board_path.exists():
             self.tensor_board_path.mkdir(parents=True, exist_ok=True)
